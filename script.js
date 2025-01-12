@@ -1,219 +1,224 @@
-// Object mapping names to image URLs
-const NAME_TO_IMAGE = {
-    "الشيخ محمد الشيخ ابراهيم الشيخ محمد عثمان": "https://raw.githubusercontent.com/AhmadRezk/prayer-counter/main/1.png",
-    "الشيخ ابراهيم الشيخ محمد عثمان": "https://raw.githubusercontent.com/AhmadRezk/prayer-counter/main/2.png",
-    "الشيخ محمد عثمان عبده البرهاني": "https://raw.githubusercontent.com/AhmadRezk/prayer-counter/main/3.png",
-    "سيدي احمد عربي الشرنوبي": "https://raw.githubusercontent.com/AhmadRezk/prayer-counter/main/4.png",
-    "سيدي موسى ابو العمران": "https://raw.githubusercontent.com/AhmadRezk/prayer-counter/main/5.png",
-    "سيدي ابراهيم القرشي الدسوقي": "https://raw.githubusercontent.com/AhmadRezk/prayer-counter/main/6.png",
-    "سيدي أبو الحسن الشاذلي": "https://raw.githubusercontent.com/AhmadRezk/prayer-counter/main/7.png",
-    "سيدي عبد السلام إبن بشيش": "https://raw.githubusercontent.com/AhmadRezk/prayer-counter/main/8.png",
-    "سيدنا ومولانا الإمام الحسين": "https://raw.githubusercontent.com/AhmadRezk/prayer-counter/main/9.png",
-    "سيدنا ومولانا الإمام علي بن ابي طالب": "https://raw.githubusercontent.com/AhmadRezk/prayer-counter/main/10.png",
-    "زيادة في شرف المصطفى ﷺ": "https://raw.githubusercontent.com/AhmadRezk/prayer-counter/main/11.png",
-    "سيدتنا السيدة زينب": "https://raw.githubusercontent.com/AhmadRezk/prayer-counter/main/12.png",
-};
-
-// Array of initial prayers
-const INITIAL_PRAYERS = [
-    { name: "الشيخ محمد الشيخ ابراهيم الشيخ محمد عثمان", content: "الفاتحة" },
-    { name: "الشيخ محمد الشيخ ابراهيم الشيخ محمد عثمان", content: "الصمدية" },
-    { name: "الشيخ ابراهيم الشيخ محمد عثمان", content: "الفاتحة" },
-    { name: "الشيخ ابراهيم الشيخ محمد عثمان", content: "الصمدية" },
-    { name: "الشيخ محمد عثمان عبده البرهاني", content: "الفاتحة" },
-    { name: "الشيخ محمد عثمان عبده البرهاني", content: "الصمدية" },
-    { name: "سيدي احمد عربي الشرنوبي", content: "الفاتحة" },
-    { name: "سيدي احمد عربي الشرنوبي", content: "الصمدية" },
-    { name: "سيدي موسى ابو العمران", content: "الفاتحة" },
-    { name: "سيدي موسى ابو العمران", content: "الصمدية" },
-    { name: "سيدي ابراهيم القرشي الدسوقي", content: "الفاتحة" },
-    { name: "سيدي ابراهيم القرشي الدسوقي", content: "الصمدية" },
-    { name: "سيدي أبو الحسن الشاذلي", content: "الفاتحة" },
-    { name: "سيدي أبو الحسن الشاذلي", content: "الصمدية" },
-    { name: "سيدي عبد السلام إبن بشيش", content: "الفاتحة" },
-    { name: "سيدي عبد السلام إبن بشيش", content: "الصمدية" },
-    { name: "سيدنا ومولانا الإمام الحسين", content: "الفاتحة" },
-    { name: "سيدنا ومولانا الإمام الحسين", content: "الصمدية" },
-    { name: "سيدنا ومولانا الإمام علي بن ابي طالب", content: "الفاتحة" },
-    { name: "سيدنا ومولانا الإمام علي بن ابي طالب", content: "الصمدية" },
-    { name: "زيادة في شرف المصطفى ﷺ", content: "الفاتحة" },
-    { name: "زيادة في شرف المصطفى ﷺ", content: "الصمدية" },
-];
-
-// Array of additional prayers
-const ADDITIONAL_PRAYERS = [
-    { name: "سيدتنا السيدة زينب", content: "الفاتحة", image: "https://raw.githubusercontent.com/AhmadRezk/prayer-counter/main/12.png" },
-    { name: "سيدتنا السيدة زينب", content: "الصمدية", image: "https://raw.githubusercontent.com/AhmadRezk/prayer-counter/main/12.png" },
-    { name: "الشيخ سيد أحمد", content: "الفاتحة" },
-    { name: "الشيخ سيد أحمد", content: "الصمدية" }
-];
-
-// Initialize state and audio elements
-let state = null;
-const clickSound = document.getElementById('click-sound');
-const transitionSound = document.getElementById('transition-sound');
-
-// Function to convert numbers to Indian numerals
-function toIndianNumerals(number) {
-    const indianNumerals = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-    return number.toString().split('').map(digit => indianNumerals[parseInt(digit)]).join('');
+/* Global styles */
+body {
+    font-family: 'Amiri', serif;
+    background-color: #f5f5f5;
+    background-image: url("https://raw.githubusercontent.com/AhmadRezk/prayer-counter/main/background.jpeg");
+    background-size: 600px 400px;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-// Function to get prayers based on selected option and inclusion of additional prayers
-function getPrayers(selectedOption, includeMore) {
-    const [count1, count2] = selectedOption.split(',').map(Number);
-    const prayers = [...INITIAL_PRAYERS, ...(includeMore ? ADDITIONAL_PRAYERS : [])].map((prayer, index) => ({
-        ...prayer,
-        count: index % 2 === 0 ? count1 : count2,
-        image: prayer.image || NAME_TO_IMAGE[prayer.name] || '/placeholder.svg'
-    }));
-    console.log('All prayers:', prayers);
-    return prayers;
+/* Main container styling */
+.container {
+    width: 100%;
+    max-width: 540px;
+    background-image: url("https://raw.githubusercontent.com/AhmadRezk/prayer-counter/main/Light%20mode.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 32px;
+    position: relative;
+    aspect-ratio: 1080 / 1920; /* Adjust this to match the exact aspect ratio of your image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-// Function to update the UI based on current state
-function updateUI() {
-    if (!state || state.finished) return;
-    const prayer = state.prayers[state.currentIndex];
-    console.log('Current prayer:', prayer);
-    document.getElementById('prayer-image').src = prayer.image || '';
-    document.getElementById('prayer-info').innerHTML = `${prayer.name}<br>${prayer.content}`;
-    document.getElementById('count-display').textContent = `${toIndianNumerals(state.currentCount)} / ${toIndianNumerals(prayer.count)}`;
-
-    // Update pie chart progress
-    const progressPercentage = (state.totalCount / state.totalCountable) * 100;
-    const pieChart = document.getElementById('pie-chart-progress');
-    pieChart.style.background = `conic-gradient(#008000 ${progressPercentage * 3.6}deg, #e0e0e0 0deg)`;
-    pieChart.setAttribute('data-value', `${Math.round(progressPercentage)}%`);
-
-    // Save state to localStorage
-    localStorage.setItem('prayerCounterState', JSON.stringify(state));
+/* Content area styling */
+.content {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    max-height: 100%;
+    box-sizing: border-box;
 }
 
-// Function to start the prayer counter
-function startPrayers(selectedOption, includeMore) {
-    const prayers = getPrayers(selectedOption, includeMore);
-    const totalCountable = prayers.reduce((sum, prayer) => sum + prayer.count, 0);
-    state = {
-        prayers: prayers,
-        currentIndex: 0,
-        currentCount: 0,
-        totalCount: 0,
-        completedCount: 0,
-        finished: false,
-        totalCountable: totalCountable,
-        selectedOption: selectedOption,
-        includeMore: includeMore
-    };
-    // Hide start page and show prayer section
-    document.getElementById('start-page').classList.add('hidden');
-    document.getElementById('prayer-section').classList.remove('hidden');
-    updateUI();
+/* Form elements styling */
+select, button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+    font-size: 18px;
+    border: 2px solid #ffd700;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #008000;
+    transition: all 0.3s ease;
 }
 
-// Function to update the prayer count
-function updatePrayerCount() {
-    if (!state || state.finished) return;
-
-    state.currentCount++;
-    state.totalCount++;
-
-    if (state.currentCount >= state.prayers[state.currentIndex].count) {
-        state.currentIndex++;
-        state.currentCount = 0;
-        state.completedCount++;
-        transitionSound.play();
-    }
-
-    state.finished = state.currentIndex >= state.prayers.length;
-
-    updateUI();
-    return state.finished;
+/* Button specific styles */
+select:focus, button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.5);
 }
 
-// Function to skip to the next prayer
-function skipPrayer() {
-    if (!state || state.finished) return;
-
-    if (state.currentIndex < state.prayers.length - 1) {
-        const remainingCount = state.prayers[state.currentIndex].count - state.currentCount;
-        state.currentIndex++;
-        state.currentCount = 0;
-        state.totalCount += remainingCount;
-        state.completedCount++;
-        transitionSound.play();
-    } else {
-        state.completedCount++;
-    }
-
-    state.finished = state.currentIndex >= state.prayers.length;
-
-    updateUI();
-    return state.finished;
+button {
+    background-color: #ffd700;
+    color: #008000;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.1s;
 }
 
-// Function to reset the prayer counter
-function resetPrayers() {
-    state = null;
-    localStorage.removeItem('prayerCounterState');
-    document.getElementById('start-page').classList.remove('hidden');
-    document.getElementById('prayer-section').classList.add('hidden');
-    document.getElementById('pie-chart-progress').style.background = 'conic-gradient(#008000 0deg, #e0e0e0 0deg)';
-    document.getElementById('pie-chart-progress').setAttribute('data-value', '0%');
+button:hover {
+    background-color: #ffec8b;
+    transform: translateY(-2px);
 }
 
-// Event listener for the start button
-document.getElementById('start-button').addEventListener('click', function() {
-    const selectedOption = document.getElementById('count-option').value;
-    const includeMore = document.getElementById('include-more').checked;
-
-    startPrayers(selectedOption, includeMore);
-    
-});
-
-// Event listener for the counting area
-document.getElementById('counting-area').addEventListener('click', function(event) {
-    if (event.target.id !== 'skip-button' && event.target.id !== 'reset-button') {
-        if (!state || state.finished) return;
-        clickSound.play();
-        const finished = updatePrayerCount();
-        if (finished) {
-            alert('جميع الفواتح اكتملت!');
-            resetPrayers();
-        }
-    }
-});
-
-// Event listener for the skip button
-document.getElementById('skip-button').addEventListener('click', function() {
-    if (!state || state.finished) return;
-    const finished = skipPrayer();
-    if (finished) {
-        alert('جميع الفواتح اكتملت!');
-        resetPrayers();
-    }
-});
-
-// Event listener for the reset button
-document.getElementById('reset-button').addEventListener('click', resetPrayers);
-
-// Load saved state on page load
-window.addEventListener('load', function() {
-    const savedState = localStorage.getItem('prayerCounterState');
-    if (savedState) {
-        state = JSON.parse(savedState);
-        document.getElementById('count-option').value = state.selectedOption;
-        document.getElementById('include-more').checked = state.includeMore;
-        // Don't automatically hide the start page or show the prayer section
-    } else {
-        // Ensure the start page is visible and the prayer section is hidden
-        document.getElementById('start-page').classList.remove('hidden');
-        document.getElementById('prayer-section').classList.add('hidden');
-    }
-});
-
-// Fallback for prayer image loading errors
-document.getElementById('prayer-image').onerror = function() {
-    this.onerror = null;
-    this.src = '/placeholder.svg';
+button:active {
+    transform: translateY(0);
 }
+
+/* Reset button specific styles */
+#reset-button {
+    background-color: #ff6347;
+    color: #fff;
+}
+
+#reset-button:hover {
+    background-color: #ff4500;
+}
+
+/* Checkbox container styling */
+.checkbox-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+/* Checkbox label styling */
+.checkbox-container label {
+    margin-right: 8px;
+    font-size: 18px;
+    color: #008000;
+}
+
+/* Prayer information styling */
+#prayer-info {
+    text-align: center;
+    margin-bottom: 16px;
+    font-size: 20px;
+    color: #008000;
+}
+
+/* Prayer image styling */
+#prayer-image {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 16px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border: 5px solid #ffd700;
+    box-shadow: 0 0 0 5px #008000;
+}
+
+/* Count display styling */
+#count-display {
+    font-size: 48px;
+    font-weight: bold;
+    color: #008000;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+/* Hidden class */
+.hidden {
+    display: none;
+}
+
+/* Pie chart progress styling */
+.pie-chart-progress {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: conic-gradient(#008000 0deg, #e0e0e0 0deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 16px auto;
+}
+
+.pie-chart-progress::before {
+    content: attr(data-value);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #008000;
+}
+
+/* Counting area styling */
+#counting-area {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 215, 0, 0.1);
+    border-radius: 8px;
+    margin-bottom: 16px;
+    cursor: pointer;
+    border: 2px solid #ffd700;
+    transition: all 0.3s ease;
+}
+
+#counting-area:hover {
+    background-color: rgba(255, 215, 0, 0.2);
+    transform: scale(1.02);
+}
+
+/* Start page styling */
+#start-page {
+    text-align: center;
+    color: #008000;
+}
+
+#start-page h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    font-family: 'Aref Ruqaa', serif;
+}
+
+#start-page p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.scroll-container {
+    max-height: 100%;
+    overflow-y: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5% 0;
+}
+
+.inner-content {
+    width: 100%;
+    max-width: 400px;
+}
+
