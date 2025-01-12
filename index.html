@@ -5,16 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prayer Counter</title>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Main container -->
     <div class="container">
         <div class="scroll-container">
             <div class="inner-content">
                 <div class="content">
+                    <!-- Start page -->
                     <div id="start-page">
                         <h1>فواتح السلسلة الصغيرة</h1>
                         <p>أهلا بكم في تطبيق عداد الفواتح. الرجاء اختيار الإعدادات وبدء العد.</p>
+                        <!-- Dropdown for selecting prayer count -->
                         <select id="count-option">
                             <option value="1,3">١ و ٣</option>
                             <option value="3,7">٣ و ٧</option>
@@ -23,30 +26,38 @@
                             <option value="33,66">٣٣ و ٦٦</option>
                             <option value="100,300">١٠٠ و ٣٠٠</option>
                         </select>
+                        <!-- Checkbox for including additional prayers -->
                         <div class="checkbox-container">
                             <input type="checkbox" id="include-more">
                             <label for="include-more">مشايخ أضافية</label>
                         </div>
+                        <!-- Start button -->
                         <button id="start-button">ابــــــــــــــــــــــدء</button>
                     </div>
+                    <!-- Prayer section (hidden initially) -->
                     <div id="prayer-section" class="hidden">
+                        <!-- Image of the current prayer -->
                         <img id="prayer-image" src="/placeholder.svg" alt="">
+                        <!-- Information about the current prayer -->
                         <div id="prayer-info"></div>
+                        <!-- Counting area -->
                         <div id="counting-area">
                             <div id="count-display"></div>
                         </div>
+                        <!-- Skip and reset buttons -->
                         <button id="skip-button">تخطي</button>
                         <button id="reset-button">إعادة ضبط</button>
+                        <!-- Pie chart progress -->
                         <div id="pie-chart-progress" class="pie-chart-progress" data-value="0%"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    <!-- Audio elements for click and transition sounds -->
     <audio id="click-sound" src="https://raw.githubusercontent.com/AhmadRezk/prayer-counter/main/Click.wav"></audio>
     <audio id="transition-sound" src="https://raw.githubusercontent.com/AhmadRezk/prayer-counter/main/Ding.mp3"></audio>
 
-    <script src="script.js"></script> 
+    <script src="script.js"></script>
 </body>
 </html>
