@@ -67,7 +67,7 @@ function getPrayers(selectedOption, includeMore) {
         count: index % 2 === 0 ? count1 : count2,
         image: prayer.image || NAME_TO_IMAGE[prayer.name] || '/placeholder.svg'
     }));
-    console.log('All prayers:', prayers); 
+    console.log('All prayers:', prayers);
     return prayers;
 }
 
@@ -75,16 +75,15 @@ function getPrayers(selectedOption, includeMore) {
 function updateUI() {
     if (!state || state.finished) return;
     const prayer = state.prayers[state.currentIndex];
-    console.log('Current prayer:', prayer); 
+    console.log('Current prayer:', prayer);
     document.getElementById('prayer-image').src = prayer.image || '';
-    document.getElementById('prayer-info').innerHTML = `<span class="math-inline">\{prayer\.name\}<br\></span>{prayer.content}`;
+    document.getElementById('prayer-info').innerHTML = `${prayer.name}<br>${prayer.content}`;
     document.getElementById('count-display').textContent = `${toIndianNumerals(state.currentCount)} / ${toIndianNumerals(prayer.count)}`;
 
     // Update pie chart progress
     const progressPercentage = (state.totalCount / state.totalCountable) * 100;
     const pieChart = document.getElementById('pie-chart-progress');
-    pieChart.style.
-background = `conic-gradient(#008000 ${progressPercentage * 3.6}deg, #e0e0e0 0deg)`;
+    pieChart.style.background = `conic-gradient(#008000 ${progressPercentage * 3.6}deg, #e0e0e0 0deg)`;
     pieChart.setAttribute('data-value', `${Math.round(progressPercentage)}%`);
 
     // Save state to localStorage
@@ -123,7 +122,7 @@ function updatePrayerCount() {
         state.currentIndex++;
         state.currentCount = 0;
         state.completedCount++;
-        transitionSound.play(); 
+        transitionSound.play();
     }
 
     state.finished = state.currentIndex >= state.prayers.length;
@@ -142,9 +141,9 @@ function skipPrayer() {
         state.currentCount = 0;
         state.totalCount += remainingCount;
         state.completedCount++;
-        transitionSound.play(); 
+        transitionSound.play();
     } else {
-        state.completedCount++; 
+        state.completedCount++;
     }
 
     state.finished = state.currentIndex >= state.prayers.length;
@@ -169,13 +168,14 @@ document.getElementById('start-button').addEventListener('click', function() {
     const includeMore = document.getElementById('include-more').checked;
 
     startPrayers(selectedOption, includeMore);
+    
 });
 
 // Event listener for the counting area
 document.getElementById('counting-area').addEventListener('click', function(event) {
     if (event.target.id !== 'skip-button' && event.target.id !== 'reset-button') {
         if (!state || state.finished) return;
-        clickSound.play(); 
+        clickSound.play();
         const finished = updatePrayerCount();
         if (finished) {
             alert('جميع الفواتح اكتملت!');
@@ -204,7 +204,7 @@ window.addEventListener('load', function() {
         state = JSON.parse(savedState);
         document.getElementById('count-option').value = state.selectedOption;
         document.getElementById('include-more').checked = state.includeMore;
-        startPrayers(state.selectedOption, state.includeMore); // Automatically start 
+        // Don't automatically hide the start page or show the prayer section
     } else {
         // Ensure the start page is visible and the prayer section is hidden
         document.getElementById('start-page').classList.remove('hidden');
