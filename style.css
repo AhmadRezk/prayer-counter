@@ -1,68 +1,37 @@
+/* Global styles */
 body {
     font-family: 'Amiri', serif;
-    background-color: #f8f9fa;
-    color: #333;
+    background-color: #f5f5f5;
+    background-image: url("https://raw.githubusercontent.com/AhmadRezk/prayer-counter/main/background.jpeg");
+    background-size: 600px 400px;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
     margin: 0;
-    padding: 0;
-}
-
-.container {
-    max-width: 600px;
-    margin: 20px auto;
     padding: 20px;
-    background: white;
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 }
-
-header {
-    text-align: center;
-    margin-bottom: 20px;
+/* Main container styling */
+.container {
+    max-width: 540px;
+    background-image: url("https://raw.githubusercontent.com/AhmadRezk/prayer-counter/main/Light%20mode.png");
+    background-size: contain;
+    padding: 32px;
+    position: relative;
+    aspect-ratio: 1080 / 1920;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
-header h1 {
-    color: #007bff;
+.content {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
-
-#prayer-selection {
-    margin-bottom: 20px;
-}
-
-#counter-section {
-    text-align: center;
-}
-
-#count {
-    font-size: 2rem;
-    color: #28a745;
-}
-
-button {
-    margin: 5px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#incrementBtn {
-    background-color: #28a745;
-    color: white;
-}
-
-#resetBtn {
-    background-color: #ff5722;
-    color: white;
-}
-
-button:hover {
-    opacity: 0.9;
-}
-
-footer {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 0.9rem;
-    color: #666;
-}
+/* Add more styles for buttons, inputs, and other elements based on your provided inline styles */
