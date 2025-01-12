@@ -1,55 +1,47 @@
-const prayerDropdown = document.getElementById('prayerDropdown');
-const countDisplay = document.getElementById('count');
-const incrementBtn = document.getElementById('incrementBtn');
-const resetBtn = document.getElementById('resetBtn');
-
+const NAME_TO_IMAGE = {
+    "الشيخ محمد الشيخ ابراهيم الشيخ محمد عثمان": "https://raw.githubusercontent.com/AhmadRezk/prayer-counter/main/1.png",
+    // Add more mappings
+};
 const INITIAL_PRAYERS = [
-    { id: 1, name: 'Prayer 1' },
-    { id: 2, name: 'Prayer 2' }
+    { name: "الشيخ محمد الشيخ ابراهيم الشيخ محمد عثمان", content: "الفاتحة" },
+    // Add more prayers
 ];
 const ADDITIONAL_PRAYERS = [
-    { id: 3, name: 'Prayer 3' },
-    { id: 4, name: 'Prayer 4' }
+    { name: "سيدتنا السيدة زينب", content: "الفاتحة", image: "https://raw.githubusercontent.com/AhmadRezk/prayer-counter/main/12.png" },
+    // Add more prayers
 ];
-let count = 0;
+let state = null;
 
-// Load prayers into dropdown
-const loadPrayers = () => {
-    const allPrayers = [...INITIAL_PRAYERS, ...ADDITIONAL_PRAYERS];
-    allPrayers.forEach(prayer => {
-        const option = document.createElement('option');
-        option.value = prayer.id;
-        option.textContent = prayer.name;
-        prayerDropdown.appendChild(option);
-    });
-};
-
-// Increment count
-const incrementCount = () => {
-    count++;
-    updateDisplay();
-};
-
-// Reset count
-const resetCount = () => {
-    count = 0;
-    updateDisplay();
-};
-
-// Update display with Indian numerals
-const updateDisplay = () => {
+function toIndianNumerals(number) {
     const indianNumerals = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-    const formattedCount = count.toString().split('').map(digit => indianNumerals[parseInt(digit)]).join('');
-    countDisplay.textContent = formattedCount;
-};
+    return number.toString().split('').map(digit => indianNumerals[parseInt(digit)]).join('');
+}
 
-// Initialize the app
-const initializeApp = () => {
-    loadPrayers();
-    incrementBtn.addEventListener('click', incrementCount);
-    resetBtn.addEventListener('click', resetCount);
-    updateDisplay();
-};
+function getPrayers(selectedOption, includeMore) {
+    const [count1, count2] = selectedOption.split(',').map(Number);
+    return [...INITIAL_PRAYERS, ...(includeMore ? ADDITIONAL_PRAYERS : [])].map((prayer, index) => ({
+        ...prayer,
+        count: index % 2 === 0 ? count1 : count2,
+        image: prayer.image || NAME_TO_IMAGE[prayer.name] || '/placeholder.svg'
+    }));
+}
 
-// Run the app
-initializeApp();
+function startPrayers(selectedOption, includeMore) {
+    state = { prayers: getPrayers(selectedOption, includeMore), currentIndex: 0, finished: false };
+    document.getElementById('start-page').classList.add('hidden');
+    document.getElementById('prayer-section').classList.remove('hidden');
+    updateUI();
+}
+
+function updateUI() {
+    if (!state || state.finished) return;
+    const prayer = state.prayers[state.currentIndex];
+    document.getElementById('prayer-info').textContent = `${prayer.name} - ${prayer.content}`;
+    // Update other elements
+}
+
+document.getElementById('start-button').addEventListener('click', () => {
+    const selectedOption = document.getElementById('count-option').value;
+    const includeMore = document.getElementById('include-more').checked;
+    startPrayers(selectedOption, includeMore);
+});
