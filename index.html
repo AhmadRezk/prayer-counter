@@ -1,29 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prayer Counter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Enhanced Prayer Counter</h1>
-        </header>
-        <div id="prayer-selection">
-            <label for="prayerDropdown">Select a prayer:</label>
-            <select id="prayerDropdown"></select>
+        <div class="scroll-container">
+            <div class="inner-content">
+                <div class="content">
+                    <div id="start-page">
+                        <h1>فواتح السلسلة الصغيرة</h1>
+                        <p>أهلا بكم في تطبيق عداد الفواتح. الرجاء اختيار الإعدادات وبدء العد.</p>
+                        <select id="count-option">
+                            <option value="1,3">١ و ٣</option>
+                            <option value="3,7">٣ و ٧</option>
+                            <option value="7,13">٧ و ١٣</option>
+                            <option value="11,33" selected>١١ و ٣٣</option>
+                            <option value="33,66">٣٣ و ٦٦</option>
+                            <option value="100,300">١٠٠ و ٣٠٠</option>
+                        </select>
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="include-more">
+                            <label for="include-more">مشايخ أضافية</label>
+                        </div>
+                        <button id="start-button">ابــــــــــــــــــــــدء</button>
+                    </div>
+                    <div id="prayer-section" class="hidden">
+                        <img id="prayer-image" src="/placeholder.svg" alt="">
+                        <div id="prayer-info"></div>
+                        <div id="counting-area">
+                            <div id="count-display"></div>
+                        </div>
+                        <button id="skip-button">تخطي</button>
+                        <button id="reset-button">إعادة ضبط</button>
+                        <div id="pie-chart-progress" class="pie-chart-progress" data-value="0%"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="counter-section">
-            <p>Count: <span id="count">٠</span></p>
-            <button id="incrementBtn">Increment</button>
-            <button id="resetBtn">Reset</button>
-        </div>
-        <footer>
-            <p>&copy; 2025 Prayer App</p>
-        </footer>
     </div>
+    <audio id="click-sound" src="https://raw.githubusercontent.com/AhmadRezk/prayer-counter/main/Click.wav"></audio>
+    <audio id="transition-sound" src="https://raw.githubusercontent.com/AhmadRezk/prayer-counter/main/Ding.mp3"></audio>
     <script src="script.js"></script>
 </body>
 </html>
